@@ -27,6 +27,7 @@ enum readStatus{
     case isReading
     case isToRead
 }
+
 // Generate mock data
 func generateMockBooks() -> [BookModel] {
     let dateFormatter = DateFormatter()
@@ -79,4 +80,3 @@ func generateMockBooks() -> [BookModel] {
     
     return [book1, book2, book3]
 }
-
