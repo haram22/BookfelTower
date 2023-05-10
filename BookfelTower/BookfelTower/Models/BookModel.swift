@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct BookModel {
+struct BookModel: Identifiable{
+    var id: String
     let title: String
     let coverUrl: URL
     let author: String
@@ -27,13 +28,13 @@ enum readStatus{
     case isToRead
 }
 
-
 // Generate mock data
 func generateMockBooks() -> [BookModel] {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
     
     let book1 = BookModel(
+        id: "1",
         title: "Mock Book 1",
         coverUrl: URL(string: "https://cdn-icons-png.flaticon.com/512/135/135620.png")!,
         author: "John Smith",
@@ -48,6 +49,7 @@ func generateMockBooks() -> [BookModel] {
     )
     
     let book2 = BookModel(
+        id: "2",
         title: "Mock Book 2",
         coverUrl: URL(string: "http://image.yes24.com/goods/1387488/XL")!,
         author: "Jane Doe",
@@ -62,6 +64,7 @@ func generateMockBooks() -> [BookModel] {
     )
     
     let book3 = BookModel(
+        id: "3",
         title: "Mock Book 3",
         coverUrl: URL(string: "https://example.com/book3.jpg")!,
         author: "David Johnson",
