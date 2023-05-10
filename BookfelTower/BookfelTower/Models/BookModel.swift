@@ -51,7 +51,7 @@ func generateMockBooks() -> [BookModel] {
     let book2 = BookModel(
         id: "2",
         title: "Mock Book 2",
-        coverUrl: URL(string: "http://image.yes24.com/goods/1387488/XL")!,
+        coverUrl: URL(string: "https://cdn-icons-png.flaticon.com/512/135/135620.png")!,
         author: "Jane Doe",
         description: "Mock description for book 2",
         publisher: "Mock Publisher",
