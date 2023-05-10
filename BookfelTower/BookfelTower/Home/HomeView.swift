@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    let mockBooks = generateMockBooks()
+
     var body: some View {
-        Text("Hello")
+        VStack{
+            ForEach(mockBooks) { book in
+                Text(book.title)
+            }
+        }
     }
 }
 
