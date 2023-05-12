@@ -10,7 +10,7 @@ import Foundation
 struct BookModel: Identifiable{
     var id: String
     let title: String
-    let coverUrl: URL
+    let coverUrl: String
     let author: String
     let description: String
     let publisher: String
@@ -36,9 +36,9 @@ func generateMockBooks() -> [BookModel] {
     let book1 = BookModel(
         id: "1",
         title: "Mock Book 1",
-        coverUrl: URL(string: "https://cdn-icons-png.flaticon.com/512/135/135620.png")!,
+        coverUrl: "https://url.kr/7wozp6",
         author: "John Smith",
-        description: "Mock description for book 1",
+        description: "Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1",
         publisher: "Mock Publisher",
         isbn: "9781234567890",
         pageNumber: "200",
@@ -51,7 +51,7 @@ func generateMockBooks() -> [BookModel] {
     let book2 = BookModel(
         id: "2",
         title: "Mock Book 2",
-        coverUrl: URL(string: "https://cdn-icons-png.flaticon.com/512/135/135620.png")!,
+        coverUrl: "https://cdn-icons-png.flaticon.com/512/135/135620.png",
         author: "Jane Doe",
         description: "Mock description for book 2",
         publisher: "Mock Publisher",
@@ -66,7 +66,7 @@ func generateMockBooks() -> [BookModel] {
     let book3 = BookModel(
         id: "3",
         title: "Mock Book 3",
-        coverUrl: URL(string: "https://cdn-icons-png.flaticon.com/512/135/135620.png")!,
+        coverUrl: "https://cdn-icons-png.flaticon.com/512/135/135620.png",
         author: "David Johnson",
         description: "Mock description for book 3",
         publisher: "Mock Publisher",
