@@ -37,6 +37,7 @@ struct SearchCard: View{
                         Text(title).font(.system(size: 20)).fontWeight(.bold)
                         Text(author).foregroundColor(.gray)
                         Text(description).padding(.top, 5).foregroundColor(.gray).font(.system(size: 14))
+                        Spacer()
                     }.padding(.top, 10).padding(.bottom, 15).padding(.leading, 10)
                 }
             }.frame(width: 370, height: 150).cornerRadius(20)
