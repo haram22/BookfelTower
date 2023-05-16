@@ -25,7 +25,7 @@ struct DetailPageView: View {
         TopAppBar()
         ScrollView{
             LazyVStack{
-                BookInfo1Vstack
+                BookDetailVStack
                 ReadingDate
                 ButtonToggle
                 if currentInfo == .bookInfo {
@@ -65,7 +65,7 @@ struct DetailPageView: View {
     }
     
     @ViewBuilder
-    private var BookInfo1Vstack: some View{
+    private var BookDetailVStack: some View{
         VStack{
             Text(title).padding(.top, 10)
             AsyncImage(url: URL(string: coverUrl)) { image in image
