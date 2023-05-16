@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct DetailPageView: View {
-    @State private var showBookInfo = true
-    @State private var showMemo = false
+    enum CurrentInfo{
+        case bookInfo
+        case memo
+    }
+    @State private var currentInfo: CurrentInfo = .bookInfo
     let title: String
     let author: String
     let pageNumber: String
@@ -21,101 +24,133 @@ struct DetailPageView: View {
     var body: some View {
         TopAppBar()
         ScrollView{
-//            BookInfo1Vstack()
-            
-            VStack{
-                Text(title).padding(.top, 10)
-                AsyncImage(url: URL(string: coverUrl)) { image in image
-                        .resizable()
-                        .frame(width: 150, height: 200)
-                } placeholder: {
-                    ProgressView()
-                }
-                Text("\(author) (\(pageNumber)p)")
-                HStack{
-                    ForEach(0..<3, id: \.self) { _ in
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
-                        }
-                }
-                ZStack{
-                    Color(.systemPink)
-                    Text("읽은 책").font(.system(size: 13)).foregroundColor(.white).fontWeight(.bold)
-                }.frame(width: 53, height: 25).padding(.top).padding(.bottom, 30)
-                
-            }
-//            ReadingDate()
-            VStack{
-                HStack{
-                    Text("독서 기간")
-                    Spacer()
-                    Text("001 일 동안 읽었어요")
-                }.padding(.horizontal, 20)
-                ZStack{
-                    Color.gray.opacity(0.4)
-                        .edgesIgnoringSafeArea(.all)
+            LazyVStack{
+                BookInfo1Vstack
+                ReadingDate
+                ButtonToggle
+                if currentInfo == .bookInfo {
                     HStack{
-                        Text("시작").foregroundColor(.pink)
-                        Text("0000.00.00")
+                        VStack(alignment: .leading, spacing: 3){
+                            LabelInfo(title: "책 소개", subTitle: description)
+                            LabelInfo(title: "출판사", subTitle: publisher)
+                            LabelInfo(title: "ISBN", subTitle: isbn)
+                            LabelInfo(title: "페이지", subTitle: pageNumber)
+                            HStack{
+                                Text("책 정보 수정")
+                                    .underline()
+                                Text("|")
+                                Text("자세히 보기")
+                                    .underline()
+                            }.foregroundColor(.pink)
+                                .font(.system(size: 10))
+                                .padding(.top, 10)
+                        }.font(.system(size: 13))
+                            .padding(.leading,20)
                         Spacer()
-                        Text("종료").foregroundColor(.pink)
-                        Text("0000.00.00")
-                    }.padding(.horizontal, 20)
-                }.frame(width: 350, height: 40)
-            }
-//            ButtonToggle()
-            HStack {
-                Button("책 정보") {
-                        showBookInfo = true
-                    showMemo = false
+                    }
+                } else if currentInfo == .memo {
+                    HStack{
+                        Text("나의 메모")
+                        Spacer()
+                        Button("작성하기"){
+                            print("pressed")
+                        }
+                        .foregroundColor(.pink)
+                    }
+                    .padding(.horizontal, 20)
                 }
-                .padding()
-                .background(showBookInfo ? Color.blue : Color.gray)
-                .foregroundColor(.white)
-                .cornerRadius(10)
                 Spacer()
-                Button("메모") {
-                    showBookInfo = false
-                    showMemo = true
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var BookInfo1Vstack: some View{
+        VStack{
+            Text(title).padding(.top, 10)
+            AsyncImage(url: URL(string: coverUrl)) { image in image
+                    .resizable()
+                    .frame(width: 150, height: 200)
+            } placeholder: {
+                ProgressView()
+            }
+            Text("\(author) (\(pageNumber)p)")
+            HStack{
+                ForEach(0..<3, id: \.self) { _ in
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.yellow)
+                }
+            }
+            ZStack{
+                Color(.systemPink)
+                Text("읽은 책")
+                    .font(.system(size: 13))
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+            }.frame(width: 53, height: 25)
+                .padding(.top)
+                .padding(.bottom, 30)
+        }
+    }
+    
+    @ViewBuilder
+    private var ReadingDate: some View{
+        VStack{
+            HStack{
+                Text("독서 기간")
+                Spacer()
+                Text("001 일 동안 읽었어요")
+            }.padding(.horizontal, 20)
+            ZStack{
+                Color.gray.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+                HStack{
+                    Text("시작")
+                        .foregroundColor(.pink)
+                    Text("0000.00.00")
+                    Spacer()
+                    Text("종료")
+                        .foregroundColor(.pink)
+                    Text("0000.00.00")
+                }
+                .padding(.horizontal, 20)
+            }
+            .frame(width: 350, height: 40)
+        }
+    }
+    
+    @ViewBuilder
+    private var ButtonToggle: some View{
+        HStack {
+            Button("책 정보") {
+                currentInfo = .bookInfo
             }
             .padding()
-            .background(showMemo ? Color.green : Color.gray)
+            .background(currentInfo == .bookInfo ? Color.blue : Color.gray)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            Spacer()
+            Button("메모") {
+                currentInfo = .memo
+            }
+            .padding()
+            .background(currentInfo == .memo ? Color.green : Color.gray)
             .foregroundColor(.white)
             .cornerRadius(10)
         }
         .padding()
         Spacer()
-        if showBookInfo {
-//            BookInfoView()
-            HStack{
-                VStack(alignment: .leading, spacing: 3){
-                    Text("책 소개").fontWeight(.bold)
-                    Text(description).foregroundColor(.gray).padding(.bottom,10)
-                    Text("출판사").fontWeight(.bold)
-                    Text(publisher).foregroundColor(.gray).padding(.bottom,10)
-                    Text("ISBN").fontWeight(.bold)
-                    Text(isbn).foregroundColor(.gray).padding(.bottom,10)
-                    Text("페이지").fontWeight(.bold)
-                    Text(pageNumber).foregroundColor(.gray)
-                    HStack{
-                        Text("책 정보 수정").underline()
-                        Text("|")
-                        Text("자세히 보기").underline()
-                    }.foregroundColor(.pink).font(.system(size: 10)).padding(.top, 10)
-                }.font(.system(size: 13)).padding(.leading,20)
-                Spacer()
-            }
-            } else if showMemo {
-//                MemoView()
-                HStack{
-                    Text("나의 메모")
-                    Spacer()
-                    Button("작성하기"){
-                        print("pressed")
-                    }.foregroundColor(.pink)
-                }.padding(.horizontal, 20)
-            }
-            Spacer()
+    }
+    
+    @ViewBuilder
+    private func LabelInfo(title: String, subTitle: String)-> some View{
+        VStack(alignment: .leading){
+            Text(title)
+                .fontWeight(.bold)
+                .padding(.bottom, 5)
+            Text(subTitle)
+                .foregroundColor(.gray)
+                .padding(.bottom,10)
         }
     }
 }
@@ -133,9 +168,11 @@ struct TopAppBar: View{
                 }
                 Button("삭제"){
                     print("삭제 pressed")
-                }.foregroundColor(.pink)
-            }.padding(.horizontal, 20).frame(height: 35)
-            
+                }
+                .foregroundColor(.pink)
+            }
+            .padding(.horizontal, 20)
+            .frame(height: 35)
         }
     }
 }
