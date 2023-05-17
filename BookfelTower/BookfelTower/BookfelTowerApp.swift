@@ -14,7 +14,8 @@ struct BookfelTowerApp: App {
     var body: some Scene {
         WindowGroup {
 //            SearchPageView()
-            DetailPageView(title: mockBooks[0].title, author: mockBooks[0].author, pageNumber: mockBooks[0].pageNumber, coverUrl: mockBooks[0].coverUrl, description: mockBooks[0].description, isbn: mockBooks[0].isbn, publisher: mockBooks[0].publisher)
+//            DetailPageView(title: mockBooks[0].title, author: mockBooks[0].author, pageNumber: mockBooks[0].pageNumber, coverUrl: mockBooks[0].coverUrl, description: mockBooks[0].description, isbn: mockBooks[0].isbn, publisher: mockBooks[0].publisher)
+            HomeView()
         }
     }
 }
