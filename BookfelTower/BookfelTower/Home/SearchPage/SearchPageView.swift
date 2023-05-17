@@ -14,7 +14,7 @@ final class DeviceSize {
 }
 
 struct SearchPageView: View{
-    @State var searchBooks = generateMockBooks()
+    @State var searchBooks = generateLibraryMockBooks()
     var body: some View{
         ScrollView{
             LazyVStack(spacing: 10){
@@ -102,7 +102,6 @@ struct BottomButton: View{
 struct SearchPageView_Previews: PreviewProvider {
     
     static var previews: some View {
-        @State var searchBooks = generateMockBooks()
-        SearchCard(title: searchBooks[0].title, author: searchBooks[0].author, pageNumber:searchBooks[0].pageNumber, coverUrl: searchBooks[0].coverUrl, description: searchBooks[0].description, isbn: searchBooks[0].isbn, publisher: searchBooks[0].publisher)
+        SearchPageView()
     }
 }
