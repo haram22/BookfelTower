@@ -40,6 +40,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21C8BE692A14913400308BEF /* DetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				214099AF2A0B649800F846AC /* DetailPageView.swift */,
+			);
+			path = DetailPage;
+			sourceTree = "<group>";
+		};
+		21C8BE6A2A14913F00308BEF /* SearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				21C8BE672A0CCDE700308BEF /* SearchPageView.swift */,
+			);
+			path = SearchPage;
+			sourceTree = "<group>";
+		};
 		57E8A24A2A0B32C300AFFEAA = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				57E8A26B2A0B338800AFFEAA /* HomeView.swift */,
-				214099AF2A0B649800F846AC /* DetailPageView.swift */,
-				21C8BE672A0CCDE700308BEF /* SearchPageView.swift */,
+				21C8BE692A14913400308BEF /* DetailPage */,
+				21C8BE6A2A14913F00308BEF /* SearchPage */,
 			);
 			path = Home;
 			sourceTree = "<group>";

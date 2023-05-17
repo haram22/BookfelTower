@@ -36,7 +36,7 @@ func generateMockBooks() -> [BookModel] {
     let book1 = BookModel(
         id: "1",
         title: "Mock Book 1",
-        coverUrl: "https://url.kr/7wozp6",
+        coverUrl: "https://url.kr/nmzv2r",
         author: "John Smith",
         description: "Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1",
         publisher: "Mock Publisher",
@@ -50,10 +50,10 @@ func generateMockBooks() -> [BookModel] {
     
     let book2 = BookModel(
         id: "2",
-        title: "Mock Book 2",
-        coverUrl: "https://cdn-icons-png.flaticon.com/512/135/135620.png",
+        title: "Mock2",
+        coverUrl: "https://url.kr/7wozp6",
         author: "Jane Doe",
-        description: "Mock description for book 2",
+        description: "Mock ",
         publisher: "Mock Publisher",
         isbn: "9780987654321",
         pageNumber: "300",
@@ -66,7 +66,7 @@ func generateMockBooks() -> [BookModel] {
     let book3 = BookModel(
         id: "3",
         title: "Mock Book 3",
-        coverUrl: "https://cdn-icons-png.flaticon.com/512/135/135620.png",
+        coverUrl: "https://url.kr/nmzv2r",
         author: "David Johnson",
         description: "Mock description for book 3",
         publisher: "Mock Publisher",
@@ -78,5 +78,20 @@ func generateMockBooks() -> [BookModel] {
         rating: 0
     )
     
-    return [book1, book2, book3]
+    let book4 = BookModel(
+        id: "4",
+        title: "Mock Book 4",
+        coverUrl: "https://url.kr/7wozp6",
+        author: "Jane Doe",
+        description: "Mock description for book 2 Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1",
+        publisher: "Mock Publisher",
+        isbn: "9780987654321",
+        pageNumber: "300",
+        readingStatus: .isReading,
+        startDate: dateFormatter.date(from: "2023-02-01"),
+        endDate: nil,
+        rating: 0
+    )
+    
+    return [book1, book2, book3, book4]
 }
