@@ -15,15 +15,24 @@ final class DeviceSize {
 
 struct SearchPageView: View{
     @State var searchBooks = generateLibraryMockBooks()
+    @State var query = ""
     var body: some View{
-        ScrollView{
-            LazyVStack(spacing: 10){
-                ForEach(searchBooks.indices, id: \.self) { index in
-                    SearchCard(title: searchBooks[index].title, author: searchBooks[index].author, pageNumber:searchBooks[index].pageNumber, coverUrl: searchBooks[index].coverUrl, description: searchBooks[index].description, isbn: searchBooks[index].isbn, publisher: searchBooks[index].publisher)
+        NavigationView{
+            VStack{
+                ScrollView{
+                    LazyVStack(spacing: 10){
+                        ForEach(searchBooks.indices, id: \.self) { index in
+                            SearchCard(title: searchBooks[index].title, author: searchBooks[index].author, pageNumber:searchBooks[index].pageNumber, coverUrl: searchBooks[index].coverUrl, description: searchBooks[index].description, isbn: searchBooks[index].isbn, publisher: searchBooks[index].publisher)
+                        }
+                    }
                 }
+                BottomButton()
             }
+            .navigationTitle("책 검색하기")
+            .searchable(text: $query,placement: .navigationBarDrawer(displayMode: .automatic), prompt: "검색")
+            
         }
-        BottomButton()
+        
     }
 }
 
@@ -78,7 +87,6 @@ struct BottomButton: View{
             Color.gray.opacity(0.4)
             VStack(spacing: 10){
                 Text("검색결과를 모두 보여드렸습니다. ☺️")
-                    .padding(.top, 10)
                 VStack{
                     Button(action: {
                         print("add book manually")
@@ -95,7 +103,7 @@ struct BottomButton: View{
                 .padding(.horizontal, 20)
             }
         }
-        .frame(height: 130)
+        .frame(height: 120)
         .padding(.bottom, 0)
     }
 }
