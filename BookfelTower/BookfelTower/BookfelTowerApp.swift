@@ -10,7 +10,7 @@ import SwiftUI
 @main
 
 struct BookfelTowerApp: App {
-    let mockBooks = generateMockBooks()
+    let mockBooks = generateLibraryMockBooks()
     var body: some Scene {
         WindowGroup {
 //            SearchPageView()

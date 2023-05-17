@@ -22,14 +22,72 @@ struct BookModel: Identifiable{
     let rating: Int
 }
 
+
+struct HomeBookModel: Identifiable{
+    var id: String
+    let title: String
+    let pageNumber: String
+}
+
+
 enum readStatus{
     case isDone
     case isReading
     case isToRead
 }
 
+//Function for Home books.
+// select id title pageNumber from BookBanks where readingStatus == isDone. -> [[id:1,title:little prince, pageNumber: 200],[....],[....]]
+
+//Function for DetailPage
+//Select * from BookBanks where id == 1 ->
+//[id: "1",
+//title: "Mock Book 1",
+//coverUrl: "https://url.kr/7wozp6",
+//author: "John Smith",
+//description: "Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1",
+//publisher: "Mock Publisher",
+//isbn: "9781234567890",
+//pageNumber: "200",
+//readingStatus: .isDone,
+//startDate: dateFormatter.date(from: "2023-01-01"),
+//endDate: dateFormatter.date(from: "2023-01-15"),
+//rating: 4]
+
+
+//Generate mock data for home
+func generateHomeMockBooks() -> [HomeBookModel] {
+    return [
+        HomeBookModel(id: "1", title: "Mock Book 1", pageNumber: "200"),
+        HomeBookModel(id: "2", title: "Mock Book 2", pageNumber: "200"),
+        HomeBookModel(id: "3", title: "Mock Book 3", pageNumber: "200")
+    ]
+}
+
+//Generate mock data for detail
+func generateDetailMockBook(id: String) -> BookModel {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+    return BookModel(
+        id: "1",
+        title: "Mock Book 1",
+        coverUrl: "https://url.kr/7wozp6",
+        author: "John Smith",
+        description: "Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1 Mock description for book 1",
+        publisher: "Mock Publisher",
+        isbn: "9781234567890",
+        pageNumber: "200",
+        readingStatus: .isDone,
+        startDate: dateFormatter.date(from: "2023-01-01"),
+        endDate: dateFormatter.date(from: "2023-01-15"),
+        rating: 4
+    )
+}
+
+
 // Generate mock data
-func generateMockBooks() -> [BookModel] {
+func generateLibraryMockBooks() -> [BookModel] {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
     

@@ -179,7 +179,7 @@ struct TopAppBar: View{
 
 struct DetailPageView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var selectedBooks = generateMockBooks()
+        @State var selectedBooks = generateLibraryMockBooks()
         DetailPageView(title: selectedBooks[0].title,
                        author: selectedBooks[0].author,
                        pageNumber: selectedBooks[0].pageNumber,

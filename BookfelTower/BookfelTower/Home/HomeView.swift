@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    let towerBooks = generateMockBooks()
+    let towerBooks = generateLibraryMockBooks()
     let totalHeight = 65
     let towerCharacter = "왕귤"
     let towerCharacterImageURL = "https://cdn-icons-png.flaticon.com/512/135/135620.png"
