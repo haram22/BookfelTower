@@ -64,6 +64,15 @@ func generateHomeMockBooks() -> [HomeBookModel] {
     ]
 }
 
+func getHomeBooksHeight() -> Int {
+    let books = generateHomeMockBooks()
+    var height = 0
+    for book in books {
+        height += Int(book.pageNumber) ?? 0
+    }
+    return height / 10
+}
+
 //Generate mock data for detail
 func generateDetailMockBook(id: String) -> BookModel {
     let dateFormatter = DateFormatter()

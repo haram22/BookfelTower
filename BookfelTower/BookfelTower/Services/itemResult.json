@@ -1,0 +1,68 @@
+{
+   "version":"20070901",
+   "title":"알라딘 상품정보 - 어린 왕자, 영원이 된 순간",
+   "link":"https:\/\/www.aladin.co.kr\/shop\/wproduct.aspx?ItemId=313978365",
+   "pubDate":"Wed, 17 May 2023 05:36:13 GMT",
+   "imageUrl":"http:\/\/www.aladin.co.kr\/ucl_editor\/img_secur\/header\/2010\/logo.jpg",
+   "totalResults":1,
+   "startIndex":1,
+   "itemsPerPage":1,
+   "query":"isbn13=9791168126008",
+   "searchCategoryId":0,
+   "searchCategoryName":"",
+   "item":[
+      {
+         "title":"어린 왕자, 영원이 된 순간 - 인간에 대한 희망으로 창조한 생텍쥐페리의 세계",
+         "link":"http:\/\/www.aladin.co.kr\/shop\/wproduct.aspx?ItemId=313978365&amp;copyPaper=1&amp;ttbkey=ttbexist50051416001&amp;start=api",
+         "author":"앙투안 드 생텍쥐페리 지음, 이세진 옮김",
+         "pubDate":"2023-04-05",
+         "description":"《어린 왕자》의 출간 80년을 기념해 펴낸 것이다. 뉴욕 모건도서관·박물관이 소장한 대중에게 한 번도 공개된 적 없는 친필 원고를 비롯해, 세계 각지에 퍼진 여러 기관과 개인 수집가 들의 소장품 350여 점을 수록했다.",
+         "creator":"aladin",
+         "isbn":"K472832200",
+         "isbn13":"9791168126008",
+         "itemId":313978365,
+         "priceSales":28800,
+         "priceStandard":32000,
+         "stockStatus":"",
+         "mileage":1600,
+         "cover":"https:\/\/image.aladin.co.kr\/product\/31397\/83\/coversum\/k472832200_1.jpg",
+         "categoryId":51378,
+         "categoryName":"국내도서>인문학>교양 인문학",
+         "publisher":"위즈덤하우스",
+         "customerReviewRank":10,
+         "bookinfo":{
+            "subTitle":"인간에 대한 희망으로 창조한 생텍쥐페리의 세계",
+            "originalTitle":"",
+            "itemPage":372,
+            "toc":"<p>추천사<BR>\n사적인 것에서 보편적인 것으로 (앙투안 갈리마르, 갈리마르 출판사 대표)<BR>\n파리의 어린 왕자 (올리비에 가베, 파리 장식미술관 관장)<BR>\n<BR>\n동화 같은 어린 시절 _ 어떤 사람들은 늙지 않고 시인으로 남는 법을 안다<BR>\n비행기 조종사 작가 _ 비행기에 대한 이야기를 쓸 거야.<BR>\n인물의 탄생 _ 나는 너무 당황했다!<BR>\n뉴욕의 어린 왕자 _《어린 왕자》는 베빈하우스의 커다란 불에서 태어났습니다.<BR>\n원고에서 출판으로 _ 그렇게 꽃 한 송이가 태어났다….<BR>\n어린 왕자 속 작가의 초상 _ 이것은 저자 자신이 그린 초상이다.<BR>\n<BR>\n《어린 왕자》 깊이 읽기<BR>\n앙투안 드 생텍쥐페리와 그의 어린 왕자 (안 모니에 반리브)<BR>\n본질적인 것을 보이게 만들다 (알방 스리지에)</p>",
+            "letslookimg":[
+               "https://image.aladin.co.kr/product/space.gif",
+               "https://image.aladin.co.kr/product/space.gif",
+               "https://image.aladin.co.kr/product/space.gif"
+            ],
+            "authors":[
+               {
+                  "authorType":"author",
+                  "authorid":20310,
+                  "desc":"지은이",
+                  "name":"앙투안 드 생텍쥐페리"
+               },
+               {
+                  "authorType":"translator",
+                  "authorid":161706,
+                  "desc":"옮긴이",
+                  "name":"이세진"
+               }
+            ],
+            "ebookList":[
+               {
+                  "itemId":315353755,
+                  "isbn":"E662531915",
+                  "priceSales":22400,
+                  "link":"https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=315353755"
+               }
+            ]
+         }
+      }
+   ]
+}
