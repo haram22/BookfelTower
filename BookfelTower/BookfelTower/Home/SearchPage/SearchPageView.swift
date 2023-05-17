@@ -77,8 +77,8 @@ struct BottomButton: View{
         ZStack{
             Color.gray.opacity(0.4)
             VStack(spacing: 10){
-                Text("검색결과를 모두 보여드렸습니다. ☺️").padding(.top, 10)
-                    .padding(.bottom, 0)
+                Text("검색결과를 모두 보여드렸습니다. ☺️")
+                    .padding(.top, 10)
                 VStack{
                     Button(action: {
                         print("add book manually")
@@ -91,9 +91,12 @@ struct BottomButton: View{
                             .background(Color.pink)
                             .cornerRadius(10)
                     }
-                }.padding(.horizontal, 20)
+                }
+                .padding(.horizontal, 20)
             }
-        }.frame(height: 130).padding(.bottom, 0)
+        }
+        .frame(height: 130)
+        .padding(.bottom, 0)
     }
 }
 struct SearchPageView_Previews: PreviewProvider {
