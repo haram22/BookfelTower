@@ -11,15 +11,15 @@ import Foundation
 
 //view입장에서 서버에서 준건지 알 필요가 없음, initializer에서 서버 데이터를 받아서 만들기
 struct BookModel: Identifiable{
-//    var id: String
-//    let title: String
-//    let coverUrl: String
-//    let author: String
-//    let description: String
-//    let publisher: String
-//    let isbn: String
-//    let pageNumber: String
-    let BookServerData: BookData
+    var id: String
+    let title: String
+    let coverUrl: String
+    let author: String
+    let description: String
+    let publisher: String
+    let isbn: String
+    let pageNumber: String
+    
     let readingStatus: ReadStatus?
     let startDate: Date?
     let endDate: Date?
@@ -91,7 +91,7 @@ func generateDetailMockBook(id: String) -> BookModel {
         publisher: "Mock Publisher",
         isbn: "9781234567890",
         pageNumber: "200",
-        readingStatus: .isDone,
+        readingStatus: .done,
         startDate: dateFormatter.date(from: "2023-01-01"),
         endDate: dateFormatter.date(from: "2023-01-15"),
         rating: 4
@@ -113,7 +113,7 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9781234567890",
         pageNumber: "200",
-        readingStatus: .isDone,
+        readingStatus: .done,
         startDate: dateFormatter.date(from: "2023-01-01"),
         endDate: dateFormatter.date(from: "2023-01-15"),
         rating: 4
@@ -128,7 +128,7 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9780987654321",
         pageNumber: "300",
-        readingStatus: .isReading,
+        readingStatus: .reading,
         startDate: dateFormatter.date(from: "2023-02-01"),
         endDate: nil,
         rating: 0
@@ -143,7 +143,7 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9785432167890",
         pageNumber: "150",
-        readingStatus: .isToRead,
+        readingStatus: .willRead,
         startDate: nil,
         endDate: nil,
         rating: 0
@@ -158,7 +158,7 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9780987654321",
         pageNumber: "300",
-        readingStatus: .isReading,
+        readingStatus: .reading,
         startDate: dateFormatter.date(from: "2023-02-01"),
         endDate: nil,
         rating: 0

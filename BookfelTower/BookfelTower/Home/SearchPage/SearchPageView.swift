@@ -15,51 +15,39 @@ final class DeviceSize {
 
 struct SearchPageView: View{
     let service = BookAPIService()
-    
-    @State private var BookDatas: [BookData] = []
-    @State var searchBooks = generateLibraryMockBooks()
+    @State var response = Response(version: "", logo: "", title: "", link: "", pubDate: "", totalResults: 0, startIndex: 0, itemsPerPage: 0, query: "", searchCategoryId: 0, searchCategoryName: "", item: nil)
     @State var query = ""
     var body: some View{
         NavigationView{
             VStack{
-                ScrollView{
-                    LazyVStack(spacing: 10){
-                        ForEach(BookDatas) { data in
-                            Text(data.title)
-                        }
-//                        ForEach(searchBooks.indices, id: \.self) { index in
-//                            SearchCard(title: searchBooks[index].title,
-//                                       author: searchBooks[index].author, pageNumber:searchBooks[index].pageNumber, coverUrl: searchBooks[index].coverUrl, description: searchBooks[index].description, isbn: searchBooks[index].isbn,
-//                                       publisher: searchBooks[index].publisher)
-                        }
-                    }
-                }
-                BottomButton()
+                Text("\(response.query)")
+               
+                Text("\(response.item?[0].title ?? "default value")")
+//                ScrollView{
+//                    LazyVStack(spacing: 10){
+//                        ForEach(items) { item in
+//                            Text(item.)
+//                        }
+//                    }
+//                }
             }
-            .navigationTitle("책 검색하기")
-            .searchable(text: $query,placement: .navigationBarDrawer(displayMode: .automatic), prompt: "검색")
-            .onSubmit(of: .search) {
-                // Perform search
-                service.search(keyword: query) { books, error in
-                    if let error = error {
-                        // Handle error
-                        print("Error: \(error)")
-                    } else if let books = books {
-                        // Update the videos array with the search results
-                        self.BookDatas = books
-                    }
-                }
-                
-                
-                
-            }
-            //            .onChange(of: query) { newValue in
-            //                service.search(keyword: newValue)
-            //            }
-            
+            BottomButton()
         }
-        
-    
+        .navigationTitle("책 검색하기")
+        .searchable(text: $query,placement: .navigationBarDrawer(displayMode: .automatic), prompt: "검색")
+        .onSubmit(of: .search) {
+            // Perform search
+            service.search(keyword: query) { response, error in
+                if let error = error {
+                    // Handle error
+                    print("Error: \(error)")
+                } else if let response = response {
+                    // Update the videos array with the search results
+                    self.response = response
+                }
+            }
+        }
+    }
 }
 
 
@@ -133,9 +121,8 @@ struct BottomButton: View{
         .padding(.bottom, 0)
     }
 }
-struct SearchPageView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        SearchPageView()
-    }
-}
+//struct SearchPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchPageView()
+//    }
+//}

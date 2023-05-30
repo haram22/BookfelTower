@@ -9,38 +9,55 @@ import Foundation
 
 //이런식으로 API응답에 맞추어 다시 짤것. 하지만 모든 필드를 맞출 필요는 없음
 struct Response: Codable{
-    let version
-    let logo
-    ...
-    
-    let item: [BookData]
-}
-
-struct BookData: Codable, Identifiable{
-    var id: String?
+    let version: String
+    let logo: String
     let title: String
-    let coverUrl: String
-    let author: String
-    let description: String
-    let publisher: String
-    let isbn: String
-    let pageNumber: String
+    let link: String
+    let pubDate: String
+    let totalResults: Int
+    let startIndex: Int
+    let itemsPerPage: Int
+    let query: String
+    let searchCategoryId: Int
+    let searchCategoryName: String
+    let item: [ItemData]?
 }
 
-struct Response: Codable {
-    let documents: [BookData]
+struct ItemData: Codable {
+    let title: String
+    let link: String
+    let author: String
+    let pubDate: String
+    let description: String
+    let isbn: String
+    let isbn13: String
+    let itemId: Int
+    let priceSales: Int
+    let priceStandard: Int
+    let mallType: String
+    let stockStatus: String
+    let mileage: Int
+    let cover: String
+    let categoryId: Int
+    let categoryName: String
+    let publisher: String
+    let salesPoint: Int
+    let adult: Bool
+    let fixedPrice: Bool
+    let customerReviewRank: Int
 }
+
+
 
 //SwiftUI 에서 비지니스 로직 어디에 태우는지?**
 //Raw 한 데이터를 반환 할 것인가?
 //정제된 데이터를 줄 것인가? -> 정제를 하면 테스트를 해야함
 //APi는 Raww만 테스트 할 수 있는 비즈니스 로직
 class BookAPIService{
-    
     //검색 예제 - 서치 바에서 키워드로 검색을 할 때 사용
     //https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbexist50051416001&Query=어린왕자&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20070901
     
-    func search(keyword: String, completion: @escaping ([BookData]?, Error?) -> Void) {
+    func search(keyword: String, completion: @escaping (Response?, Error?) -> Void) {
         let urlString = "https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?"
         let apiKey = "ttbexist50051416001"
         let query = keyword
@@ -68,10 +85,9 @@ class BookAPIService{
             if response.statusCode == 200{
                 if let data = data{
                     do {
-                        let jsonData = try self.extractJSONData(from: data) // Extract the actual JSON data
-                        let decodedReponse = try JSONDecoder().decode(Response.self, from: jsonData)
-                        let books = decodedReponse.documents
-                        completion(books,nil)
+                        let response = try JSONDecoder().decode(Response.self, from: data)
+                        completion(response,nil)
+                        print(response.item?[0] ?? "default value")
                     } catch {
                         completion(nil, error)
                     }
