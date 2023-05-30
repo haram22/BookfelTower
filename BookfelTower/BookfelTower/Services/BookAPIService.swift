@@ -7,6 +7,15 @@
 
 import Foundation
 
+//이런식으로 API응답에 맞추어 다시 짤것. 하지만 모든 필드를 맞출 필요는 없음
+struct Response: Codable{
+    let version
+    let logo
+    ...
+    
+    let item: [BookData]
+}
+
 struct BookData: Codable, Identifiable{
     var id: String?
     let title: String
@@ -21,6 +30,11 @@ struct BookData: Codable, Identifiable{
 struct Response: Codable {
     let documents: [BookData]
 }
+
+//SwiftUI 에서 비지니스 로직 어디에 태우는지?**
+//Raw 한 데이터를 반환 할 것인가?
+//정제된 데이터를 줄 것인가? -> 정제를 하면 테스트를 해야함
+//APi는 Raww만 테스트 할 수 있는 비즈니스 로직
 class BookAPIService{
     
     //검색 예제 - 서치 바에서 키워드로 검색을 할 때 사용
@@ -62,9 +76,9 @@ class BookAPIService{
                         completion(nil, error)
                     }
                 }
-            }            
+            }
         }
-        task.resume() //이건 왜 필요하지?
+        task.resume() //이건 왜 필요하지? -> Instance를 생성후 실질적으로 실행하는것
         
     }
     
@@ -91,7 +105,7 @@ class BookAPIService{
                 return jsonData
             }
         }
-
+        //현재 여기서 에러나는 상태
         throw NSError(domain: "Invalid JSONP response", code: 0, userInfo: nil)
     }
 }
