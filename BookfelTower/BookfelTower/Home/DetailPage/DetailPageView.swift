@@ -6,28 +6,31 @@
 //
 
 import SwiftUI
+enum CurrentInfo{
+    case bookInfo
+    case memo
+}
 
 struct DetailPageView: View {
-    enum CurrentInfo{
-        case bookInfo
-        case memo
-    }
-    @State private var currentInfo: CurrentInfo = .bookInfo
-    let title: String
-    let author: String
-    let pageNumber: String
-    let coverUrl: String
-    let description: String
-    let isbn: String
-    let publisher: String
-    let readingStatus: ReadStatus
-    let currentReadingPage: Int
-    let expectedScore: Int
-    let startDate: Date?
-    let endDate: Date?
+    //ISBN만 받아와서 새로 API 호출 할 것
+    let isbn: String?
+    //일단 예시로 서치페이지에서 받아온것. API에서 새로 받은 데이터로 가능한 고화질의 이미지가 필요함.
+    let coverUrl: String?
+    
+    //private으로 할 시 parent view에서 initialize 불가능했기때문에 internal로 바꿈
+    @State internal var currentInfo: CurrentInfo = .bookInfo
+    internal var title: String?
+    internal var author: String?
+    internal var pageNumber: String?
+    internal var description: String?
+    internal var publisher: String?
+    internal var readingStatus: ReadStatus?
+    internal var currentReadingPage: Int?
+    internal var expectedScore: Int?
+    internal var startDate: Date?
+    internal var endDate: Date?
     
     var body: some View {
-        
         TopAppBar()
         ScrollView{
             LazyVStack{
@@ -44,10 +47,10 @@ struct DetailPageView: View {
                 if currentInfo == .bookInfo {
                     HStack{
                         VStack(alignment: .leading, spacing: 3){
-                            LabelInfo(title: "책 소개", subTitle: description)
-                            LabelInfo(title: "출판사", subTitle: publisher)
-                            LabelInfo(title: "ISBN", subTitle: isbn)
-                            LabelInfo(title: "페이지", subTitle: pageNumber)
+                            LabelInfo(title: "책 소개", subTitle: description ?? "")
+                            LabelInfo(title: "출판사", subTitle: publisher ?? "")
+                            LabelInfo(title: "ISBN", subTitle: isbn ?? "")
+                            LabelInfo(title: "페이지", subTitle: pageNumber ?? "")
                             HStack{
                                 Text("책 정보 수정")
                                     .underline()
@@ -80,16 +83,16 @@ struct DetailPageView: View {
     }
     
     @ViewBuilder
-    private var BookDetailVStack: some View{
+    var BookDetailVStack: some View{
         VStack{
-            Text(title).padding(.top, 10)
-            AsyncImage(url: URL(string: coverUrl)) { image in image
+            Text(title ?? "").padding(.top, 10)
+            AsyncImage(url: URL(string: coverUrl ?? "")) { image in image
                     .resizable()
                     .frame(width: 150, height: 200)
             } placeholder: {
                 ProgressView()
             }
-            Text("\(author) (\(pageNumber)p)")
+            Text("\(author ?? "") (\(pageNumber ?? "")p)")
             if readingStatus == .done
             {
                 HStack{
@@ -114,7 +117,7 @@ struct DetailPageView: View {
     }
     
     @ViewBuilder
-    private var ReadingDate: some View {
+    var ReadingDate: some View {
         if let startDate = startDate, let endDate = endDate {
             let calendar = Calendar.current
             let startMonth = String(format: "%02d", calendar.component(.month, from: startDate))
@@ -166,14 +169,14 @@ struct DetailPageView: View {
 
     
     @ViewBuilder
-    private var ReadingProgress: some View{
+    var ReadingProgress: some View{
         VStack(alignment: .leading){
             Text("독서량")
-            ProgressView(value: Double(currentReadingPage), total: Double(pageNumber) ?? 0.0)
+            ProgressView(value: Double(currentReadingPage ?? 0), total: Double(pageNumber ?? "") ?? 0.0)
             HStack{
                 Text("0").font(.system(size: 13))
                 Spacer()
-                Text("\(currentReadingPage)/\(pageNumber)페이지")
+                Text("\(currentReadingPage ?? 0)/\(pageNumber ?? "")페이지")
                     .font(.system(size: 13))
             }
         }
@@ -181,15 +184,15 @@ struct DetailPageView: View {
     }
     
     @ViewBuilder
-    private var ExpectedScore: some View{
+    var ExpectedScore: some View{
         VStack(alignment: .leading){
             Text("기대점수")
-            ProgressView(value: Double(expectedScore), total: 10)
+            ProgressView(value: Double(expectedScore ?? 0), total: 10)
             HStack{
                 Text("0")
                     .font(.system(size: 13))
                 Spacer()
-                Text("\(expectedScore)/10점")
+                Text("\(expectedScore ?? 0)/10점")
                     .font(.system(size: 13))
             }
         }
@@ -197,7 +200,7 @@ struct DetailPageView: View {
     }
     
     @ViewBuilder
-    private var ButtonToggle: some View{
+    var ButtonToggle: some View{
         HStack {
             Button("책 정보") {
                 currentInfo = .bookInfo
@@ -220,7 +223,7 @@ struct DetailPageView: View {
     }
     
     @ViewBuilder
-    private func LabelInfo(title: String, subTitle: String)-> some View{
+    func LabelInfo(title: String, subTitle: String)-> some View{
         VStack(alignment: .leading){
             Text(title)
                 .fontWeight(.bold)
@@ -254,20 +257,20 @@ struct TopAppBar: View{
     }
 }
 
-struct DetailPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var selectedBooks = generateDetailMockBook(id: "1")
-        DetailPageView(title: selectedBooks.title,
-                       author: selectedBooks.author,
-                       pageNumber: selectedBooks.pageNumber,
-                       coverUrl: selectedBooks.coverUrl,
-                       description: selectedBooks.description,
-                       isbn: selectedBooks.isbn,
-                       publisher: selectedBooks.publisher,
-                       readingStatus: selectedBooks.readingStatus ?? .willRead,
-                       currentReadingPage: selectedBooks.currentReadingPage,
-                       expectedScore: selectedBooks.expectScore,
-                       startDate: selectedBooks.startDate!,
-                       endDate: selectedBooks.endDate!)
-    }
-}
+//struct DetailPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        @State var selectedBooks = generateDetailMockBook(id: "1")
+//        DetailPageView(title: selectedBooks.title,
+//                       author: selectedBooks.author,
+//                       pageNumber: selectedBooks.pageNumber,
+//                       coverUrl: selectedBooks.coverUrl,
+//                       description: selectedBooks.description,
+//                       isbn: selectedBooks.isbn,
+//                       publisher: selectedBooks.publisher,
+//                       readingStatus: selectedBooks.readingStatus ?? .willRead,
+//                       currentReadingPage: selectedBooks.currentReadingPage,
+//                       expectedScore: selectedBooks.expectScore,
+//                       startDate: selectedBooks.startDate!,
+//                       endDate: selectedBooks.endDate!)
+//    }
+//}

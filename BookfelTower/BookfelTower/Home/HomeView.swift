@@ -17,7 +17,7 @@ struct HomeView: View {
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack {
             VStack(){
                 NavigationLink(destination: SearchPageView()){
                     HStack(){
@@ -32,9 +32,6 @@ struct HomeView: View {
                 .cornerRadius(8)
                 .padding(8)
                 .foregroundColor(Color(.systemGray))
-                .onTapGesture {
-                    
-                }
                 ScrollView{
                     Spacer(minLength: 300)
                     VStack(alignment: .center, spacing:1) {
