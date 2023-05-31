@@ -94,7 +94,7 @@ func generateDetailMockBook(id: String) -> BookModel {
         publisher: "Mock Publisher",
         isbn: "9781234567890",
         pageNumber: "200",
-        readingStatus: .isReading,
+        readingStatus: .reading,
 
         startDate: dateFormatter.date(from: "2023-01-01"),
         endDate: dateFormatter.date(from: "2023-01-15"),

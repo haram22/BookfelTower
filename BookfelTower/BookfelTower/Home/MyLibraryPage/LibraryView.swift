@@ -74,11 +74,11 @@ struct libraryTapDetail: View {
         case .allBooks:
             return libraryCards
         case .doneBooks:
-            return libraryCards.filter { $0.readingStatus == .isDone }
+            return libraryCards.filter { $0.readingStatus == .done }
         case .readingBooks:
-            return libraryCards.filter { $0.readingStatus == .isReading }
+            return libraryCards.filter { $0.readingStatus == .reading }
         case .toReadBooks:
-            return libraryCards.filter { $0.readingStatus == .isToRead }
+            return libraryCards.filter { $0.readingStatus == .willRead }
         }
     }
     
