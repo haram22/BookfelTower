@@ -7,29 +7,29 @@
 
 import SwiftUI
 
-final class DeviceSize {
-    static var shouldSmallSize: Bool {
-        return UIScreen.main.bounds.width < 380
-    }
-}
-
 struct SearchPageView: View{
     let service = BookAPIService()
-    @State var response = Response(version: "", logo: "", title: "", link: "", pubDate: "", totalResults: 0, startIndex: 0, itemsPerPage: 0, query: "", searchCategoryId: 0, searchCategoryName: "", item: nil)
+    @State var isSearchPressed = false
     @State var query = ""
+    @State var response = Response(version: "", logo: "", title: "", link: "", pubDate: "", totalResults: 0, startIndex: 0, itemsPerPage: 0, query: "", searchCategoryId: 0, searchCategoryName: "", item: nil)
+    var itemDataSample = ItemData(index: 0, title: "", link: "", author: "", pubDate: "", description: "", isbn: "", isbn13: "", itemId: 0, priceSales: 0, priceStandard: 0, mallType: "", stockStatus: "", mileage: 0, cover: "", categoryId: 0, categoryName: "", publisher: "", salesPoint: 0, adult: false, fixedPrice: false, customerReviewRank: 0)
     var body: some View{
         NavigationView{
             VStack{
-                Text("\(response.query)")
-               
-                Text("\(response.item?[0].title ?? "default value")")
-//                ScrollView{
-//                    LazyVStack(spacing: 10){
-//                        ForEach(items) { item in
-//                            Text(item.)
-//                        }
-//                    }
-//                }
+                ScrollView{
+                    if isSearchPressed{
+                        LazyVStack(spacing: 10){
+                            ForEach(response.item ?? [itemDataSample], id: \.id) { item in
+                                SearchCard(title: item.title, author: item.author, coverUrl: item.cover, description: item.description, isbn: item.isbn13, publisher: item.publisher)
+                            }
+                        }
+                    }else{
+                        Text("책을 검색하세요")
+                            .padding(.all)
+                            .foregroundColor(.gray)
+                    }
+                    
+                }
             }
             BottomButton()
         }
@@ -43,6 +43,7 @@ struct SearchPageView: View{
                     print("Error: \(error)")
                 } else if let response = response {
                     // Update the videos array with the search results
+                    self.isSearchPressed = true
                     self.response = response
                 }
             }
@@ -54,14 +55,12 @@ struct SearchPageView: View{
 struct SearchCard: View{
     let title: String
     let author: String
-    let pageNumber: String
     let coverUrl: String
     let description: String
     let isbn: String
     let publisher: String
     
     var body: some View{
-        
         HStack(spacing: 0){
             AsyncImage(url: URL(string: coverUrl)) { image in image
                     .resizable()
@@ -121,8 +120,9 @@ struct BottomButton: View{
         .padding(.bottom, 0)
     }
 }
-//struct SearchPageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchPageView()
-//    }
-//}
+
+final class DeviceSize {
+    static var shouldSmallSize: Bool {
+        return UIScreen.main.bounds.width < 380
+    }
+}

@@ -57,8 +57,8 @@ struct HomeView: View {
                                 Text(book.title)
                             }.frame(width: 300).foregroundColor(.white)
                         }
-                    }.border(Color.red)
-                }.border(Color.blue)
+                    }
+                }
                 
                 
             }
