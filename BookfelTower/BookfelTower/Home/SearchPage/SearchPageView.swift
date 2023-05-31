@@ -61,37 +61,41 @@ struct SearchCard: View{
     let publisher: String
     
     var body: some View{
-        HStack(spacing: 0){
-            AsyncImage(url: URL(string: coverUrl)) { image in image
-                    .resizable()
-                    .frame(width: DeviceSize.shouldSmallSize ? 100 : 110, height: DeviceSize.shouldSmallSize ? 130 : 140)
-            } placeholder: {
-                ProgressView()
-            }
-            ZStack(alignment: .leading){
-                Color.gray.opacity(0.2)
-                VStack(alignment: .leading){
-                    Text(title)
-                        .font(DeviceSize.shouldSmallSize ? .system(size: 15) : .system(size: 20))
-                        .fontWeight(.bold)
-                    Text(author)
-                        .foregroundColor(.gray)
-                        .font(DeviceSize.shouldSmallSize ? .system(size: 13) : .system(size: 17))
-                        .fontWeight(.bold)
-                    Text(description)
-                        .padding(.top, 5)
-                        .padding(.trailing, 10)
-                        .foregroundColor(.gray)
-                        .font(DeviceSize.shouldSmallSize ? .system(size: 10) : .system(size: 13))
-                    Spacer()
+//        NavigationLink(destination: SampleDetailView(isbn: self.isbn)){
+        NavigationLink(destination: DetailPageView(isbn: self.isbn, coverUrl: self.coverUrl)){
+            HStack(spacing: 0){
+                AsyncImage(url: URL(string: coverUrl)) { image in image
+                        .resizable()
+                        .frame(width: DeviceSize.shouldSmallSize ? 100 : 110, height: DeviceSize.shouldSmallSize ? 130 : 140)
+                } placeholder: {
+                    ProgressView()
                 }
-                .padding(.top, 10)
-                .padding(.horizontal, 20)
+                ZStack(alignment: .leading){
+                    Color.gray.opacity(0.2)
+                    VStack(alignment: .leading){
+                        Text(title)
+                            .font(DeviceSize.shouldSmallSize ? .system(size: 15) : .system(size: 20))
+                            .fontWeight(.bold)
+                        Text(author)
+                            .foregroundColor(.gray)
+                            .font(DeviceSize.shouldSmallSize ? .system(size: 13) : .system(size: 17))
+                            .fontWeight(.bold)
+                        Text(description)
+                            .padding(.top, 5)
+                            .padding(.trailing, 10)
+                            .foregroundColor(.gray)
+                            .font(DeviceSize.shouldSmallSize ? .system(size: 10) : .system(size: 13))
+                        Spacer()
+                    }
+                    .padding(.top, 10)
+                    .padding(.horizontal, 20)
+                }
             }
+            .frame(height: DeviceSize.shouldSmallSize ? 130 : 140)
+            .cornerRadius(20)
+            .padding(.horizontal, DeviceSize.shouldSmallSize ? 15 : 20)
         }
-        .frame(height: DeviceSize.shouldSmallSize ? 130 : 140)
-        .cornerRadius(20)
-        .padding(.horizontal, DeviceSize.shouldSmallSize ? 15 : 20)
+       
     }
 }
 struct BottomButton: View{
