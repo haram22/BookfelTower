@@ -20,7 +20,7 @@ struct DetailPageView: View {
     let description: String
     let isbn: String
     let publisher: String
-    let readingStatus: readStatus
+    let readingStatus: ReadStatus
     let currentReadingPage: Int
     let expectedScore: Int
     let startDate: Date?
@@ -32,10 +32,10 @@ struct DetailPageView: View {
         ScrollView{
             LazyVStack{
                 BookDetailVStack
-                if readingStatus == .isReading {
+                if readingStatus == .reading {
                     ReadingDate
                     ReadingProgress
-                } else if readingStatus == .isToRead{
+                } else if readingStatus == .willRead{
                     ExpectedScore
                 } else {
                     ReadingDate
@@ -90,7 +90,7 @@ struct DetailPageView: View {
                 ProgressView()
             }
             Text("\(author) (\(pageNumber)p)")
-            if readingStatus == .isDone
+            if readingStatus == .done
             {
                 HStack{
                     ForEach(0..<3, id: \.self) { _ in
@@ -101,7 +101,7 @@ struct DetailPageView: View {
             }
             ZStack{
                 Color(.systemPink)
-                Text(readingStatus == .isDone ? "읽은 책" : readingStatus == .isReading ? "읽고 있는 책" : "읽고 싶은 책")
+                Text(readingStatus == .done ? "읽은 책" : readingStatus == .reading ? "읽고 있는 책" : "읽고 싶은 책")
 
                     .font(.system(size: 13))
                     .foregroundColor(.white)
@@ -109,7 +109,7 @@ struct DetailPageView: View {
             }.frame(height: 25)
                 .padding(.top)
                 .padding(.bottom, 30)
-                .padding(.horizontal, readingStatus == .isDone ? 170 : 160)
+                .padding(.horizontal, readingStatus == .done ? 170 : 160)
         }
     }
     
@@ -131,9 +131,9 @@ struct DetailPageView: View {
                 HStack {
                     Text("독서 기간")
                     Spacer()
-                    if readingStatus == .isDone {
+                    if readingStatus == .done {
                         Text("\(readingDuration) 일 동안 읽었어요")
-                    } else if readingStatus == .isReading {
+                    } else if readingStatus == .reading {
                         Text("\(currentReadingDay) 일째 읽는 중")
                     }
                 }
@@ -149,9 +149,9 @@ struct DetailPageView: View {
                         Spacer()
                         Text("종료")
                             .foregroundColor(.pink)
-                        if readingStatus == .isDone {
+                        if readingStatus == .done {
                             Text("\(endYear)/\(endMonth)/\(endDay)")
-                        } else if readingStatus == .isReading {
+                        } else if readingStatus == .reading {
                             Text("-")
                             Spacer()
                         }
@@ -264,7 +264,7 @@ struct DetailPageView_Previews: PreviewProvider {
                        description: selectedBooks.description,
                        isbn: selectedBooks.isbn,
                        publisher: selectedBooks.publisher,
-                       readingStatus: selectedBooks.readingStatus ?? .isToRead,
+                       readingStatus: selectedBooks.readingStatus ?? .willRead,
                        currentReadingPage: selectedBooks.currentReadingPage,
                        expectedScore: selectedBooks.expectScore,
                        startDate: selectedBooks.startDate!,
