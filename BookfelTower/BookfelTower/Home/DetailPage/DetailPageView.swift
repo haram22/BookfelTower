@@ -20,13 +20,26 @@ struct DetailPageView: View {
     let description: String
     let isbn: String
     let publisher: String
+    let readingStatus: readStatus
+    let currentReadingPage: Int
+    let expectedScore: Int
+    let startDate: Date?
+    let endDate: Date?
     
     var body: some View {
+        
         TopAppBar()
         ScrollView{
             LazyVStack{
                 BookDetailVStack
-                ReadingDate
+                if readingStatus == .isReading {
+                    ReadingDate
+                    ReadingProgress
+                } else if readingStatus == .isToRead{
+                    ExpectedScore
+                } else {
+                    ReadingDate
+                }
                 ButtonToggle
                 if currentInfo == .bookInfo {
                     HStack{
@@ -41,11 +54,13 @@ struct DetailPageView: View {
                                 Text("|")
                                 Text("자세히 보기")
                                     .underline()
-                            }.foregroundColor(.pink)
-                                .font(.system(size: 10))
-                                .padding(.top, 10)
-                        }.font(.system(size: 13))
-                            .padding(.leading,20)
+                            }
+                            .foregroundColor(.pink)
+                            .font(.system(size: 10))
+                            .padding(.top, 10)
+                        }
+                        .font(.system(size: 13))
+                        .padding(.leading,20)
                         Spacer()
                     }
                 } else if currentInfo == .memo {
@@ -75,48 +90,110 @@ struct DetailPageView: View {
                 ProgressView()
             }
             Text("\(author) (\(pageNumber)p)")
-            HStack{
-                ForEach(0..<3, id: \.self) { _ in
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
+            if readingStatus == .isDone
+            {
+                HStack{
+                    ForEach(0..<3, id: \.self) { _ in
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                    }
                 }
             }
             ZStack{
                 Color(.systemPink)
-                Text("읽은 책")
+                Text(readingStatus == .isDone ? "읽은 책" : readingStatus == .isReading ? "읽고 있는 책" : "읽고 싶은 책")
+
                     .font(.system(size: 13))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
-            }.frame(width: 53, height: 25)
+            }.frame(height: 25)
                 .padding(.top)
                 .padding(.bottom, 30)
+                .padding(.horizontal, readingStatus == .isDone ? 170 : 160)
         }
     }
     
     @ViewBuilder
-    private var ReadingDate: some View{
-        VStack{
-            HStack{
-                Text("독서 기간")
-                Spacer()
-                Text("001 일 동안 읽었어요")
-            }.padding(.horizontal, 20)
-            ZStack{
-                Color.gray.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-                HStack{
-                    Text("시작")
-                        .foregroundColor(.pink)
-                    Text("0000.00.00")
+    private var ReadingDate: some View {
+        if let startDate = startDate, let endDate = endDate {
+            let calendar = Calendar.current
+            let startMonth = String(format: "%02d", calendar.component(.month, from: startDate))
+            let startDay = String(format: "%02d", calendar.component(.day, from: startDate))
+            let startYear = String(format: "%04d", calendar.component(.year, from: startDate))
+            let endMonth = String(format: "%02d", calendar.component(.month, from: endDate))
+            let endDay = String(format: "%02d", calendar.component(.day, from: endDate))
+            let endYear = String(format: "%04d", calendar.component(.year, from: endDate))
+            let readingDuration = calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 0
+            let today = Date()
+            let currentReadingDay = Calendar.current.dateComponents([.day], from: startDate, to: today).day ?? 0
+
+            VStack {
+                HStack {
+                    Text("독서 기간")
                     Spacer()
-                    Text("종료")
-                        .foregroundColor(.pink)
-                    Text("0000.00.00")
+                    if readingStatus == .isDone {
+                        Text("\(readingDuration) 일 동안 읽었어요")
+                    } else if readingStatus == .isReading {
+                        Text("\(currentReadingDay) 일째 읽는 중")
+                    }
                 }
                 .padding(.horizontal, 20)
+                
+                ZStack {
+                    Color.gray.opacity(0.4)
+                        .edgesIgnoringSafeArea(.all)
+                    HStack {
+                        Text("시작")
+                            .foregroundColor(.pink)
+                        Text("\(startYear)/\(startMonth)/\(startDay)")
+                        Spacer()
+                        Text("종료")
+                            .foregroundColor(.pink)
+                        if readingStatus == .isDone {
+                            Text("\(endYear)/\(endMonth)/\(endDay)")
+                        } else if readingStatus == .isReading {
+                            Text("-")
+                            Spacer()
+                        }
+                    }
+                    .font(.system(size: 12))
+                    .padding(.horizontal, 20)
+                }
+                .frame(width: 350, height: 40)
             }
-            .frame(width: 350, height: 40)
         }
+    }
+
+    
+    @ViewBuilder
+    private var ReadingProgress: some View{
+        VStack(alignment: .leading){
+            Text("독서량")
+            ProgressView(value: Double(currentReadingPage), total: Double(pageNumber) ?? 0.0)
+            HStack{
+                Text("0").font(.system(size: 13))
+                Spacer()
+                Text("\(currentReadingPage)/\(pageNumber)페이지")
+                    .font(.system(size: 13))
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    @ViewBuilder
+    private var ExpectedScore: some View{
+        VStack(alignment: .leading){
+            Text("기대점수")
+            ProgressView(value: Double(expectedScore), total: 10)
+            HStack{
+                Text("0")
+                    .font(.system(size: 13))
+                Spacer()
+                Text("\(expectedScore)/10점")
+                    .font(.system(size: 13))
+            }
+        }
+        .padding(.horizontal, 20)
     }
     
     @ViewBuilder
@@ -179,13 +256,18 @@ struct TopAppBar: View{
 
 struct DetailPageView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var selectedBooks = generateLibraryMockBooks()
-        DetailPageView(title: selectedBooks[0].title,
-                       author: selectedBooks[0].author,
-                       pageNumber: selectedBooks[0].pageNumber,
-                       coverUrl: selectedBooks[0].coverUrl,
-                       description: selectedBooks[0].description,
-                       isbn: selectedBooks[0].isbn,
-                       publisher: selectedBooks[0].publisher)
+        @State var selectedBooks = generateDetailMockBook(id: "1")
+        DetailPageView(title: selectedBooks.title,
+                       author: selectedBooks.author,
+                       pageNumber: selectedBooks.pageNumber,
+                       coverUrl: selectedBooks.coverUrl,
+                       description: selectedBooks.description,
+                       isbn: selectedBooks.isbn,
+                       publisher: selectedBooks.publisher,
+                       readingStatus: selectedBooks.readingStatus ?? .isToRead,
+                       currentReadingPage: selectedBooks.currentReadingPage,
+                       expectedScore: selectedBooks.expectScore,
+                       startDate: selectedBooks.startDate!,
+                       endDate: selectedBooks.endDate!)
     }
 }

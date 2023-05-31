@@ -24,6 +24,9 @@ struct BookModel: Identifiable{
     let startDate: Date?
     let endDate: Date?
     let rating: Int
+    let currentReadingPage: Int
+    let expectScore: Int
+    // rating 하나에 상태에 따라 다르게 저장할까 하다가, 일단 따로 변수를 만들었음.
 }
 
 
@@ -91,10 +94,13 @@ func generateDetailMockBook(id: String) -> BookModel {
         publisher: "Mock Publisher",
         isbn: "9781234567890",
         pageNumber: "200",
-        readingStatus: .done,
+        readingStatus: .isReading,
+
         startDate: dateFormatter.date(from: "2023-01-01"),
         endDate: dateFormatter.date(from: "2023-01-15"),
-        rating: 4
+        rating: 4,
+        currentReadingPage: 10,
+        expectScore: 7 // added
     )
 }
 
@@ -116,7 +122,9 @@ func generateLibraryMockBooks() -> [BookModel] {
         readingStatus: .done,
         startDate: dateFormatter.date(from: "2023-01-01"),
         endDate: dateFormatter.date(from: "2023-01-15"),
-        rating: 4
+        rating: 4,
+        currentReadingPage: 30,
+        expectScore: 5
     )
     
     let book2 = BookModel(
@@ -131,7 +139,9 @@ func generateLibraryMockBooks() -> [BookModel] {
         readingStatus: .reading,
         startDate: dateFormatter.date(from: "2023-02-01"),
         endDate: nil,
-        rating: 0
+        rating: 0,
+        currentReadingPage: 40,
+        expectScore: 5
     )
     
     let book3 = BookModel(
@@ -146,7 +156,9 @@ func generateLibraryMockBooks() -> [BookModel] {
         readingStatus: .willRead,
         startDate: nil,
         endDate: nil,
-        rating: 0
+        rating: 0,
+        currentReadingPage: 20,
+        expectScore: 5
     )
     
     let book4 = BookModel(
@@ -161,7 +173,9 @@ func generateLibraryMockBooks() -> [BookModel] {
         readingStatus: .reading,
         startDate: dateFormatter.date(from: "2023-02-01"),
         endDate: nil,
-        rating: 0
+        rating: 0,
+        currentReadingPage: 0,
+        expectScore: 5
     )
     
     return [book1, book2, book3, book4]
