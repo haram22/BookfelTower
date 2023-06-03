@@ -62,7 +62,7 @@ struct SearchCard: View{
     
     var body: some View{
 //        NavigationLink(destination: SampleDetailView(isbn: self.isbn)){
-        NavigationLink(destination: DetailPageView(isbn: self.isbn, coverUrl: self.coverUrl)){
+        NavigationLink(destination: SampleDetailView(isbn: self.isbn)){
             HStack(spacing: 0){
                 AsyncImage(url: URL(string: coverUrl)) { image in image
                         .resizable()
@@ -98,6 +98,7 @@ struct SearchCard: View{
        
     }
 }
+
 struct BottomButton: View{
     var body: some View{
         ZStack{
