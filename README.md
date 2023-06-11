@@ -11,8 +11,8 @@
 ## 👩🏻‍💻  Team
 |조성진|김하람|
 |---|---|
-|사진 넣어주세요|<img src="https://github.com/alexcho617/BookfelTower/assets/97924765/4b0ee7b3-23c8-4449-b547-9acd714f6b29" height="10%"></img>|
-|깃 링크나 원하느 링크|🐈‍⬛ <https://github.com/haram22>|
+|<img src = "https://static.wixstatic.com/media/33c8bd_64f0f718ab5c4ecf85ebb5469ff58ba6~mv2.jpg/v1/fill/w_960,h_960,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/IMG_0508.jpg" width = 250></img>|<img src="https://github.com/alexcho617/BookfelTower/assets/97924765/4b0ee7b3-23c8-4449-b547-9acd714f6b29" width=220></img>|
+|https://alexcho617.wixsite.com/portfolio|🐈‍⬛ <https://github.com/haram22>|
 
 <br>
 
