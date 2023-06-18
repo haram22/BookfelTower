@@ -14,6 +14,7 @@ struct SampleDetailView: View {
         _query = State(initialValue: isbn ?? "")
     }
     
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -49,10 +50,11 @@ struct SampleDetailView: View {
             }
         }
         .onAppear {
-            LookUp(isbn: query)
+            lookUp(isbn: query)
         }
     }
-    func LookUp(isbn: String) {
+    
+    func lookUp(isbn: String) {
             service.search(keyword: isbn) { [self] response, error in
                 if let error = error {
                     print("Error: \(error)")
