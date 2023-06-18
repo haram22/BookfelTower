@@ -14,6 +14,7 @@ struct SampleDetailView: View {
         _query = State(initialValue: isbn ?? "")
     }
     
+    
     var body: some View {
         VStack {
             ScrollView {
