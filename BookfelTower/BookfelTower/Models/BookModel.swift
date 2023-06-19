@@ -7,6 +7,9 @@
 
 import Foundation
 
+//api 에서 가져오는 데이터는 따로 BookData로 만들어서 넣어야 하나?? enum 같은게 있어서 코더블 프로토콜을 사용 할 수 없기 때문에
+
+//view입장에서 서버에서 준건지 알 필요가 없음, initializer에서 서버 데이터를 받아서 만들기
 struct BookModel: Identifiable{
     var id: String
     let title: String
@@ -16,10 +19,14 @@ struct BookModel: Identifiable{
     let publisher: String
     let isbn: String
     let pageNumber: String
-    let readingStatus: readStatus?
+    
+    let readingStatus: ReadStatus?
     let startDate: Date?
     let endDate: Date?
     let rating: Int
+    let currentReadingPage: Int
+    let expectScore: Int
+    // rating 하나에 상태에 따라 다르게 저장할까 하다가, 일단 따로 변수를 만들었음.
 }
 
 
@@ -30,10 +37,10 @@ struct HomeBookModel: Identifiable{
 }
 
 
-enum readStatus{
-    case isDone
-    case isReading
-    case isToRead
+enum ReadStatus{
+    case done
+    case reading
+    case willRead
 }
 
 //Function for Home books.
@@ -87,10 +94,13 @@ func generateDetailMockBook(id: String) -> BookModel {
         publisher: "Mock Publisher",
         isbn: "9781234567890",
         pageNumber: "200",
-        readingStatus: .isDone,
+        readingStatus: .reading,
+
         startDate: dateFormatter.date(from: "2023-01-01"),
         endDate: dateFormatter.date(from: "2023-01-15"),
-        rating: 4
+        rating: 4,
+        currentReadingPage: 10,
+        expectScore: 7 // added
     )
 }
 
@@ -109,10 +119,12 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9781234567890",
         pageNumber: "200",
-        readingStatus: .isDone,
+        readingStatus: .done,
         startDate: dateFormatter.date(from: "2023-01-01"),
         endDate: dateFormatter.date(from: "2023-01-15"),
-        rating: 4
+        rating: 4,
+        currentReadingPage: 30,
+        expectScore: 5
     )
     
     let book2 = BookModel(
@@ -124,10 +136,12 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9780987654321",
         pageNumber: "300",
-        readingStatus: .isReading,
+        readingStatus: .reading,
         startDate: dateFormatter.date(from: "2023-02-01"),
         endDate: nil,
-        rating: 0
+        rating: 0,
+        currentReadingPage: 40,
+        expectScore: 5
     )
     
     let book3 = BookModel(
@@ -139,10 +153,12 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9785432167890",
         pageNumber: "150",
-        readingStatus: .isToRead,
+        readingStatus: .willRead,
         startDate: nil,
         endDate: nil,
-        rating: 0
+        rating: 0,
+        currentReadingPage: 20,
+        expectScore: 5
     )
     
     let book4 = BookModel(
@@ -154,10 +170,12 @@ func generateLibraryMockBooks() -> [BookModel] {
         publisher: "Mock Publisher",
         isbn: "9780987654321",
         pageNumber: "300",
-        readingStatus: .isReading,
+        readingStatus: .reading,
         startDate: dateFormatter.date(from: "2023-02-01"),
         endDate: nil,
-        rating: 0
+        rating: 0,
+        currentReadingPage: 0,
+        expectScore: 5
     )
     
     return [book1, book2, book3, book4]

@@ -10,10 +10,26 @@ import SwiftUI
 @main
 
 struct BookfelTowerApp: App {
-    let mockBooks = generateLibraryMockBooks()
+    let selectedBooks = generateDetailMockBook(id: "1")
+    
     var body: some Scene {
         WindowGroup {
-            SearchPageView()
+//        LibraryView()
+//            DetailPageView(title: selectedBooks.title,
+//                           author: selectedBooks.author,
+//                           pageNumber: selectedBooks.pageNumber,
+//                           coverUrl: selectedBooks.coverUrl,
+//                           description: selectedBooks.description,
+//                           isbn: selectedBooks.isbn,
+//                           publisher: selectedBooks.publisher,
+//                           readingStatus: selectedBooks.readingStatus ?? .isToRead,
+//                           currentReadingPage: selectedBooks.currentReadingPage,
+//                           expectedScore: selectedBooks.expectScore,
+//                           startDate: selectedBooks.startDate ?? Date(),
+//                           endDate: selectedBooks.endDate ?? Date())
+            HomeView()
+//            SampleDetailView(isbn: "9791168126008")
+//            SearchPageView(response: <#Response#>)
 //            DetailPageView(title: mockBooks[0].title, author: mockBooks[0].author, pageNumber: mockBooks[0].pageNumber, coverUrl: mockBooks[0].coverUrl, description: mockBooks[0].description, isbn: mockBooks[0].isbn, publisher: mockBooks[0].publisher)
         }
     }
